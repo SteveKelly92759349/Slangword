@@ -42,7 +42,7 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
             JOptionPane.YES_NO_OPTION);
     String data[][] = { { "", "", "" } };
 
-    FindSWFrame() throws Exception {
+    public FindSWFrame() throws Exception {
         Container con = this.getContentPane();
         slangword = SlangWord.getInstance();
         // Title Label
