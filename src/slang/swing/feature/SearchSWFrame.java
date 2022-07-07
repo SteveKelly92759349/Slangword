@@ -29,7 +29,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class FindSWFrame extends JFrame implements ActionListener, TableModelListener {
+public class SearchSWFrame extends JFrame implements ActionListener, TableModelListener {
     JButton btnBack, btnFind;
     JTextField textField;
     JTable jt;
@@ -42,15 +42,17 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
             JOptionPane.YES_NO_OPTION);
     String data[][] = { { "", "", "" } };
 
-    public FindSWFrame() throws Exception {
+    public SearchSWFrame() throws Exception {
         Container con = this.getContentPane();
         slangword = SlangWord.getInstance();
         // Title Label
-        JLabel titleLabel = new JLabel();
-        titleLabel.setText("Find Slang Words");
-        titleLabel.setForeground(Color.green);
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Find Slang Words ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
-        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.blue);
+        titleLabel.setForeground(Color.white);
+        titlePanel.setMaximumSize(new Dimension(700, 300));
 
         // Result Label
         titleLabel1 = new JLabel();
@@ -62,11 +64,12 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
         // Form
         JPanel form = new JPanel();
         // form.setBackground(Color.black);
-        JLabel formLabel = new JLabel("Input Slang word");
+        JLabel formLabel = new JLabel("Input Slang Word");
         textField = new JTextField();
         btnFind = new JButton("Find");
         btnFind.addActionListener(this);
         btnFind.setMnemonic(KeyEvent.VK_ENTER);
+        btnFind.setBackground(Color.cyan);
         // SpringLayout layout = new SpringLayout();
         form.setLayout(new BorderLayout(10, 10));
 
@@ -81,7 +84,7 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
 
-        String column[] = { "STT", "Slag", "Meaning" };
+        String column[] = { "STT", "Slang Word", "Meaning" };
 
         jt = new JTable(new DefaultTableModel(column, 0));
         jt.setRowHeight(30);
@@ -98,18 +101,18 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
         panelTable.add(sp);
 
         // Button Back
-        JPanel bottomPanel = new JPanel();
+        JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
         // btnBack.addActionListener(this);
         btnBack.setFocusable(false);
-        bottomPanel.add(btnBack);
+        bottonPanel.add(btnBack);
         btnBack.addActionListener(this);
         btnBack.setAlignmentX(CENTER_ALIGNMENT);
 
         // Setting Content
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(titleLabel);
+        con.add(titlePanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(titleLabel1);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -118,11 +121,12 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
         con.add(panelTable);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(btnBack);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
         // Setting JFrame
         this.setTitle("Find Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(700, 700);
+        this.setSize(800, 750);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
@@ -149,10 +153,10 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
                 long endTime = System.currentTimeMillis();
                 long timeElapsed = endTime - startTime;
                 if (temp != null)
-                    titleLabel1.setText("Execution time in milliseconds(" + temp.length + " Results ): "
+                    titleLabel1.setText("Execution time in milliseconds: " + temp.length + " Slang Words/ "
                             + String.valueOf(timeElapsed) + " ms");
                 else {
-                    titleLabel1.setText("Can't not find that slangWord");
+                    titleLabel1.setText("Can't not find that Slang Word");
                     return;
                 }
                 result = temp;
@@ -168,10 +172,10 @@ public class FindSWFrame extends JFrame implements ActionListener, TableModelLis
                 long endTime = System.currentTimeMillis();
                 long timeElapsed = endTime - startTime;
                 if (temp != null)
-                    titleLabel1.setText("Execution time in milliseconds(" + temp.length + " Results ): "
+                    titleLabel1.setText("Execution time in millisecond: " + temp.length + " Slang Words/ "
                             + String.valueOf(timeElapsed) + " ms");
                 else {
-                    titleLabel1.setText("Can't not find that slangWord");
+                    titleLabel1.setText("Can't not find that Slang Word");
                     return;
                 }
                 result = temp;

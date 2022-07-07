@@ -37,11 +37,13 @@ public class DeleteSWFrame extends JFrame implements ActionListener, ListSelecti
         slangWord = SlangWord.getInstance();
 
         // Label
-        JLabel titleLabel = new JLabel();
-        titleLabel.setText("Choose a Slang Word you want to delete");
-        titleLabel.setForeground(Color.green);
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Choose Slang Words ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
-        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.blue);
+        titleLabel.setForeground(Color.white);
+        titlePanel.setMaximumSize(new Dimension(700, 300));
         // titleLabel.setBackground(Color.black);
         // titleLabel.setOpaque(true);
 
@@ -57,8 +59,8 @@ public class DeleteSWFrame extends JFrame implements ActionListener, ListSelecti
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
         data = slangWord.getData();
-        String column[] = { "STT", "Slag", "Meaning" };
-        resultLabel.setText("We have " + data.length + " slang words");
+        String column[] = { "STT", "Slang Word", "Meaning" };
+        resultLabel.setText("Total: " + data.length + " Slang Words");
         jt = new JTable(new DefaultTableModel(column, 0));
         model = (DefaultTableModel) jt.getModel();
         jt.setRowHeight(30);
@@ -76,28 +78,28 @@ public class DeleteSWFrame extends JFrame implements ActionListener, ListSelecti
         panelTable.add(sp);
 
         // Button Back
-        JPanel bottomPanel = new JPanel();
+        JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
         btnBack.addActionListener(this);
         btnBack.setFocusable(false);
         btnBack.setAlignmentX(CENTER_ALIGNMENT);
-        bottomPanel.add(btnBack);
+        bottonPanel.add(btnBack);
 
         // Add to con
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(titleLabel);
+        con.add(titlePanel);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(resultLabel);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(panelTable);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
-        con.add(bottomPanel);
+        con.add(bottonPanel);
         // Setting JFrame
-        this.setTitle("List Slang Words");
+        this.setTitle("Delete Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(700, 700);
+        this.setSize(800, 750);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         addRow();

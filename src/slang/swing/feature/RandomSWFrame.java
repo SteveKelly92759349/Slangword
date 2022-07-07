@@ -29,7 +29,7 @@ public class RandomSWFrame extends JFrame implements ActionListener {
 
         // Title
         JPanel titlePanel = new JPanel();
-        JLabel titleLabel = new JLabel("SLANG WORD RANDOM TO DAY IS ");
+        JLabel titleLabel = new JLabel("Random Slang Words ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
         titlePanel.add(titleLabel);
         titlePanel.setBackground(Color.blue);
@@ -72,16 +72,17 @@ public class RandomSWFrame extends JFrame implements ActionListener {
 
         // Setting con
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(titlePanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(slangPanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(buttonPane);
         // Setting JFrame
-        this.setTitle("Ramdom Slangwords");
+        this.setTitle("Random Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(700, 700);
+        this.setSize(800, 250);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }

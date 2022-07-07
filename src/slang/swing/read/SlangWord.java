@@ -44,12 +44,26 @@ public class SlangWord {
         return obj;
     }
 
+    void resetHistory (String file){
+        try {
+            PrintWriter printWriter = new PrintWriter(new File(file));
+            StringBuilder stringBuilder = new StringBuilder();
+            String s[][] = new String[map.size()][3];
+            // System.out.println(stringBuilder.toString());
+            printWriter.write(stringBuilder.toString());
+            printWriter.close();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e);
+        }
+    }
     void saveFile(String file) {
         try {
             PrintWriter printWriter = new PrintWriter(new File(file));
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Slag`Meaning\n");
+            stringBuilder.append("Slang`Meaning\n");
             String s[][] = new String[map.size()][3];
             Set<String> keySet = map.keySet();
             Object[] keyArray = keySet.toArray();
@@ -157,6 +171,14 @@ public class SlangWord {
         this.saveFile(FILE_SLANGWORD);
         System.out.println("Size of map: " + sizeMap);
     }
+    public void setslang(String slag, String oldValue, String newValue) {
+        System.out.println(oldValue + "\t" + newValue);
+        List<String> slang = map.get(slag);
+        int index = slang.indexOf(oldValue);
+        slang.set(index, newValue);
+        this.saveFile(FILE_SLANGWORD);
+        System.out.println("Size of map: " + sizeMap);
+    }
 
     public void saveHistory(String slag, String meaning) throws Exception {
         // String file = "history.txt";
@@ -225,6 +247,8 @@ public class SlangWord {
         try {
             readFile(FILE_ORIGINAL_SLANGWORD);
             this.saveFile(FILE_SLANGWORD);
+            this.resetHistory(FILE_HISTORY);
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -22,24 +22,33 @@ import javax.swing.table.DefaultTableCellRenderer;
 import slang.swing.read.SlangWord;
 import slang.swing.shows.MenuSWFrame;
 public class HistorySWFrame extends JFrame implements ActionListener {
-    JButton btnReturn, btnExit;
+    JButton btnBack;
     SlangWord slangWord = SlangWord.getInstance();
 
     public HistorySWFrame() {
         Container con = this.getContentPane();
 
         // History
-        JLabel historyLabel = new JLabel();
-        historyLabel.setText("History Slagword Found");
-        historyLabel.setForeground(Color.green);
-        historyLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
-        historyLabel.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("History Slang Words ");
+        titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.blue);
+        titleLabel.setForeground(Color.white);
+        titlePanel.setMaximumSize(new Dimension(700, 300));
         // Table
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
+        // Label total
+
+        JLabel resultLabel = new JLabel();
+        resultLabel.setForeground(Color.black);
+        resultLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+        resultLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         String data[][] = slangWord.readHistory();
         String column[] = { "STT", "Slang Word", "Definition" };
+        resultLabel.setText("Total: " + data.length + " slang words");
         JTable jt = new JTable(data, column);
         jt.setRowHeight(30);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -53,31 +62,35 @@ public class HistorySWFrame extends JFrame implements ActionListener {
         panelTable.add(sp);
 
         // 2 Button
-        JPanel bottomPanel = new JPanel();
-        btnReturn = new JButton("Return");
-        btnExit = new JButton("Exit");
-        btnReturn.addActionListener(this);
-        btnExit.addActionListener(this);
-        Dimension size2 = new Dimension(700, 50);
-        bottomPanel.setMaximumSize(size2);
-        bottomPanel.setPreferredSize(size2);
-        bottomPanel.setMinimumSize(size2);
-        bottomPanel.setLayout(new GridLayout(1, 2));
-        bottomPanel.add(btnReturn);
-        bottomPanel.add(btnExit);
+        JPanel bottonPanel = new JPanel();
+        btnBack = new JButton("Back");
+        //btnExit = new JButton("Exit");
+        btnBack.addActionListener(this);
+        //btnExit.addActionListener(this);
+        //Dimension size2 = new Dimension(100, 50);
+        //bottonPanel.setMaximumSize(size2);
+        //bottonPanel.setPreferredSize(size2);
+        //bottonPanel.setMinimumSize(size2);
+        //bottonPanel.setLayout(new GridLayout(1, 1));
+        bottonPanel.add(btnBack);
+        //bottomPanel.add(btnExit);
 
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
-        con.add(historyLabel);
-        con.add(Box.createRigidArea(new Dimension(0, 50)));
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(titlePanel);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
+        con.add(resultLabel);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(panelTable);
         con.add(Box.createRigidArea(new Dimension(0, 50)));
-        con.add(bottomPanel);
+        con.add(bottonPanel);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Setting JFrame
         this.setTitle("History Window");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(700, 700);
+        this.setSize(800, 700);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
@@ -85,9 +98,7 @@ public class HistorySWFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        if (e.getSource() == btnExit) {
-            System.exit(0);
-        } else if (e.getSource() == btnReturn) {
+        if (e.getSource() == btnBack) {
             this.dispose();
             new MenuSWFrame();
         }

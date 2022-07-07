@@ -30,12 +30,14 @@ public class AddSWFrame extends JFrame implements ActionListener {
         // Get container & slang word
         slangWord = SlangWord.getInstance();
         Container con = this.getContentPane();
-        JLabel titleLabel = new JLabel();
-        titleLabel.setText("Add Slang Words");
-        titleLabel.setForeground(Color.green);
+
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Add Slang Words ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
-        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
-        titleLabel.setPreferredSize(new Dimension(300, 100));
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.blue);
+        titleLabel.setForeground(Color.white);
+        titlePanel.setMaximumSize(new Dimension(700, 300));
 
         // Form
         JPanel form = new JPanel();
@@ -45,7 +47,7 @@ public class AddSWFrame extends JFrame implements ActionListener {
         SpringLayout layout = new SpringLayout();
         slagPanel.setLayout(layout);
         JLabel labelForSlang = new JLabel("Slang word: ");
-        textFieldSlang = new JTextField("", 20);
+        textFieldSlang = new JTextField("", 10);
         labelForSlang.setPreferredSize(new Dimension(100, 20));
         slagPanel.add(labelForSlang);
         slagPanel.add(textFieldSlang);
@@ -61,7 +63,7 @@ public class AddSWFrame extends JFrame implements ActionListener {
         meaningPanel.setLayout(layout1);
         JLabel labelForMeaning = new JLabel("Meaning: ");
         labelForMeaning.setPreferredSize(new Dimension(100, 20));
-        textFieldMeaning = new JTextField("", 20);
+        textFieldMeaning = new JTextField("", 10);
         meaningPanel.add(labelForMeaning);
         meaningPanel.add(textFieldMeaning);
         layout1.putConstraint(SpringLayout.WEST, labelForMeaning, 6, SpringLayout.WEST, meaningPanel);
@@ -77,7 +79,7 @@ public class AddSWFrame extends JFrame implements ActionListener {
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         form.add(meaningPanel);
         // Button Back and button Add
-        JPanel bottomPanel = new JPanel();
+        JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
         // btnBack.addActionListener(this);
         btnBack.setFocusable(false);
@@ -88,22 +90,23 @@ public class AddSWFrame extends JFrame implements ActionListener {
         btnAdd.setFocusable(false);
         btnAdd.addActionListener(this);
         btnAdd.setAlignmentX(CENTER_ALIGNMENT);
-        bottomPanel.add(btnBack);
-        bottomPanel.add(btnAdd);
+        bottonPanel.add(btnBack);
+        bottonPanel.add(btnAdd);
 
         // Setting content
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(titleLabel);
+        con.add(titlePanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(form);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(bottomPanel);
+        con.add(bottonPanel);
         // Setting Frame
-        this.setTitle("Add Slang word");
+        this.setTitle("Add Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.pack();
+        this.setSize(500, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }

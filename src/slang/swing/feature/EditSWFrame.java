@@ -23,22 +23,24 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import slang.swing.read.SlangWord;
 import slang.swing.shows.MenuSWFrame;
-public class ListSWFrame extends JFrame implements ActionListener, TableModelListener {
+public class EditSWFrame extends JFrame implements ActionListener, TableModelListener {
     JButton btnBack;
     JTable jt;
     SlangWord slangWord;
     String dataCopy[][];
 
-    public ListSWFrame() throws Exception {
+    public EditSWFrame() throws Exception {
         Container con = this.getContentPane();
         slangWord = SlangWord.getInstance();
 
         // Label
-        JLabel titleLabel = new JLabel();
-        titleLabel.setText("List Slang Words");
-        titleLabel.setForeground(Color.green);
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Edit Slang Words ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
-        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(Color.blue);
+        titleLabel.setForeground(Color.white);
+        titlePanel.setMaximumSize(new Dimension(700, 300));
         // titleLabel.setBackground(Color.black);
         // titleLabel.setOpaque(true);
 
@@ -47,6 +49,12 @@ public class ListSWFrame extends JFrame implements ActionListener, TableModelLis
         resultLabel.setForeground(Color.black);
         resultLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
         resultLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+        JLabel editlabel = new JLabel();
+        editlabel.setForeground(Color.black);
+        editlabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+        editlabel.setAlignmentX(CENTER_ALIGNMENT);
+        editlabel.setText("Click twice on the Meaning you want to edit");
         // resultLabel.setBackground(Color.blue);
         // resultLabel.setOpaque(true);
 
@@ -55,8 +63,8 @@ public class ListSWFrame extends JFrame implements ActionListener, TableModelLis
         panelTable.setBackground(Color.black);
         String data[][] = slangWord.getData();
         dataCopy = slangWord.getData();
-        String column[] = { "STT", "Slag", "Meaning" };
-        resultLabel.setText("We have " + data.length + " slang words");
+        String column[] = { "STT", "Slang Word", "Meaning" };
+        resultLabel.setText("Total: " + data.length + " slang words");
         jt = new JTable(data, column);
         jt.setRowHeight(30);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -72,28 +80,30 @@ public class ListSWFrame extends JFrame implements ActionListener, TableModelLis
         panelTable.add(sp);
 
         // Button Back
-        JPanel bottomPanel = new JPanel();
+        JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
         btnBack.addActionListener(this);
         btnBack.setFocusable(false);
         btnBack.setAlignmentX(CENTER_ALIGNMENT);
-        bottomPanel.add(btnBack);
+        bottonPanel.add(btnBack);
 
         // Add to con
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        con.add(titleLabel);
+        con.add(titlePanel);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(resultLabel);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
+        con.add(editlabel);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(panelTable);
         con.add(Box.createRigidArea(new Dimension(0, 20)));
-        con.add(bottomPanel);
+        con.add(bottonPanel);
         // Setting JFrame
-        this.setTitle("List Slang Words");
+        this.setTitle("Edit Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(700, 700);
+        this.setSize(800, 720);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
@@ -123,5 +133,11 @@ public class ListSWFrame extends JFrame implements ActionListener, TableModelLis
             slangWord.set((String) jt.getValueAt(row, 1), dataCopy[row][2], (String) jt.getValueAt(row, 2));
             JOptionPane.showMessageDialog(this, "Updated a row.");
         }
+//        else if (col == 1) {
+//            // edit meaning
+//            System.out.println("Old SlangWord: \t" + row + "\t" + dataCopy[row][1]);
+//            slangWord.set((String) jt.getValueAt(row, 1), dataCopy[row][1], (String) jt.getValueAt(row, 1));
+//            JOptionPane.showMessageDialog(this, "Updated a row.");
+//        }
     }
 }
