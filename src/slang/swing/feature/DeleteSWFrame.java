@@ -1,105 +1,145 @@
 package slang.swing.feature;
 
+
+import slang.swing.read.SlangWord;
+import slang.swing.shows.MenuSWFrame;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import java.awt.event.KeyEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import slang.swing.read.SlangWord;
-import slang.swing.shows.MenuSWFrame;
-public class DeleteSWFrame extends JFrame implements ActionListener, ListSelectionListener {
-    JButton btnBack;
+public class DeleteSWFrame extends JFrame implements ActionListener, TableModelListener, ListSelectionListener {
+    JButton btnBack, btnFind, btnClear;
+    JTextField textField;
     JTable jt;
-    SlangWord slangWord;
+    JLabel titleLabel1;
     DefaultTableModel model;
-    String data[][];
-
+    SlangWord slangword;
+    String[][] result;
+    final JOptionPane optionPane = new JOptionPane("The only way to close this dialog is by\n"
+            + "pressing one of the following buttons.\n" + "Do you understand?", JOptionPane.QUESTION_MESSAGE,
+            JOptionPane.YES_NO_OPTION);
+    String data[][] = { { "", "", "" } };
+    String datatemp[][];
     public DeleteSWFrame() throws Exception {
         Container con = this.getContentPane();
-        slangWord = SlangWord.getInstance();
-
-        // Label
+        slangword = SlangWord.getInstance();
+        // Title Label
         JPanel titlePanel = new JPanel();
-        JLabel titleLabel = new JLabel("Choose Slang Words ");
+        JLabel titleLabel = new JLabel("Choose Slang Word you want to Delete ");
         titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
         titlePanel.add(titleLabel);
         titlePanel.setBackground(Color.blue);
         titleLabel.setForeground(Color.white);
         titlePanel.setMaximumSize(new Dimension(700, 300));
-        // titleLabel.setBackground(Color.black);
-        // titleLabel.setOpaque(true);
 
-        // Label
-        JLabel resultLabel = new JLabel();
-        resultLabel.setForeground(Color.black);
-        resultLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
-        resultLabel.setAlignmentX(CENTER_ALIGNMENT);
-        // resultLabel.setBackground(Color.blue);
-        // resultLabel.setOpaque(true);
+        // Result Label
+        titleLabel1 = new JLabel();
+        titleLabel1.setText("Enter Slang Word you want to Delete ");
+        titleLabel1.setForeground(Color.black);
+        titleLabel1.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+        titleLabel1.setAlignmentX(CENTER_ALIGNMENT);
 
-        // List Slang Words
+        // Form
+        JPanel form = new JPanel();
+        // form.setBackground(Color.black);
+        JLabel formLabel = new JLabel("Input Slang Word");
+        textField = new JTextField();
+
+        btnFind = new JButton("Find");
+        btnFind.addActionListener(this);
+        btnFind.setMnemonic(KeyEvent.VK_ENTER);
+        btnFind.setBackground(Color.cyan);
+
+        // SpringLayout layout = new SpringLayout();
+        form.setLayout(new BorderLayout( 10, 10));
+
+        form.add(formLabel, BorderLayout.LINE_START);
+        form.add(textField, BorderLayout.CENTER);
+        form.add(btnFind, BorderLayout.LINE_END);
+        Dimension size = new Dimension(700, 50);
+        form.setMaximumSize(size);
+        form.setPreferredSize(size);
+        form.setMinimumSize(size);
+        // Table result
         JPanel panelTable = new JPanel();
         panelTable.setBackground(Color.black);
-        data = slangWord.getData();
+        datatemp = slangword.getData();
+
         String column[] = { "STT", "Slang Word", "Meaning" };
-        resultLabel.setText("Total: " + data.length + " Slang Words");
+
         jt = new JTable(new DefaultTableModel(column, 0));
-        model = (DefaultTableModel) jt.getModel();
         jt.setRowHeight(30);
+        model = (DefaultTableModel) jt.getModel();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jt.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         jt.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         jt.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-
+//        jt.getModel().addTableModelListener(this);
         ListSelectionModel selectionModel = jt.getSelectionModel();
 
         selectionModel.addListSelectionListener(this);
-        JScrollPane sp = new JScrollPane(jt);
-        panelTable.setLayout(new BoxLayout(panelTable, BoxLayout.X_AXIS));
-        panelTable.add(sp);
 
+        JScrollPane sp = new JScrollPane(jt);
+
+        panelTable.setLayout(new GridLayout(1, 1));
+        panelTable.add(sp);
+        Dimension size2 = new Dimension(650, 530);
+        panelTable.setMaximumSize(size2);
+        panelTable.setPreferredSize(size2);
+        panelTable.setMinimumSize(size2);
         // Button Back
         JPanel bottonPanel = new JPanel();
+        bottonPanel.setLayout(new GridLayout(1, 2, 10, 10));
+        Dimension size3 = new Dimension(200, 50);
+        bottonPanel.setMaximumSize(size3);
+        bottonPanel.setPreferredSize(size3);
+        bottonPanel.setMinimumSize(size3);
+        btnClear = new JButton("Clear");
         btnBack = new JButton("Back ");
-        btnBack.addActionListener(this);
+        // btnBack.addActionListener(this);
         btnBack.setFocusable(false);
-        btnBack.setAlignmentX(CENTER_ALIGNMENT);
+        btnClear.setFocusable(false);
+        bottonPanel.add(btnClear);
         bottonPanel.add(btnBack);
+        btnBack.addActionListener(this);
+        btnClear.addActionListener(this);
 
-        // Add to con
+
+        // Setting Content
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(titlePanel);
-        con.add(Box.createRigidArea(new Dimension(0, 20)));
-        con.add(resultLabel);
-        con.add(Box.createRigidArea(new Dimension(0, 20)));
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(titleLabel1);
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(form);
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(panelTable);
-        con.add(Box.createRigidArea(new Dimension(0, 20)));
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(bottonPanel);
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
         // Setting JFrame
         this.setTitle("Delete Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(800, 750);
+        this.setSize(800, 850);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         addRow();
@@ -108,21 +148,89 @@ public class DeleteSWFrame extends JFrame implements ActionListener, ListSelecti
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        if (e.getSource() == btnBack) {
+        if (e.getSource() == btnFind) {
+            String key = textField.getText();
+            // System.out.println("a" + key + "a");
+            if (key.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please input slang word you want to find", "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Object[] options = { "Find Flow Slang Word", "Find Slang Flow definition" };
+            int n = JOptionPane.showOptionDialog(this, "Choose mode " + "you want to excute?", "Choose mode find",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+            String[][] temp = null;
+            if (n == 0) {
+                this.clearTable();
+                long startTime = System.currentTimeMillis();
+                temp = slangword.getMeaning(key);
+                long endTime = System.currentTimeMillis();
+                long timeElapsed = endTime - startTime;
+                if (temp != null)
+                    titleLabel1.setText("Execution time in milliseconds: " + temp.length + " Slang Words/ "
+                            + String.valueOf(timeElapsed) + " ms");
+                else {
+                    titleLabel1.setText("Can't not find that Slang Word");
+                    return;
+                }
+                result = temp;
+                for (int i = 0; i < result.length; i++) {
+                    String ss[] = result[i];
+                    model.addRow(ss);
+                }
+
+            } else if (n == 1) {
+                this.clearTable();
+                long startTime = System.currentTimeMillis();
+                temp = slangword.findDefinition(key);
+                long endTime = System.currentTimeMillis();
+                long timeElapsed = endTime - startTime;
+                if (temp != null)
+                    titleLabel1.setText("Execution time in millisecond: " + temp.length + " Slang Words/ "
+                            + String.valueOf(timeElapsed) + " ms");
+                else {
+                    titleLabel1.setText("Can't not find that Slang Word");
+                    return;
+                }
+                result = temp;
+                for (int i = 0; i < result.length; i++) {
+                    String ss[] = result[i];
+                    model.addRow(ss);
+                }
+            }
+            try {
+                for (int ii = 0; ii < temp.length; ii++)
+                    slangword.saveHistory(temp[ii][1], temp[ii][2]);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        } else if (e.getSource() == btnBack) {
             this.dispose();
             new MenuSWFrame();
-        }
-    }
+        } else if (e.getSource() == btnClear) {
+            this.clearTable();
+            this.addRow();
 
-    public void addRow() {
-        int size = data.length;
-        for (int i = 0; i < size; i++) {
-            String ss[] = data[i];
-            model.addRow(ss);
         }
     }
 
     @Override
+    public void tableChanged(TableModelEvent e) {
+//        int row = jt.getSelectedRow();
+//        int col = jt.getSelectedColumn();
+//        if (row == col && row == -1)
+//            return;
+//        String Data = (String) jt.getValueAt(row, col);
+//        System.out.println("Table element selected is: " + row + col + " : " + Data);
+//        if (col == 2) {
+//            // edit meaning
+//            slangword.set((String) jt.getValueAt(row, 1), result[row][2], (String) jt.getValueAt(row, 2));
+//            JOptionPane.showMessageDialog(this, "Updated a row.");
+//        }
+//        jt.setFocusable(false);
+        // TODO Auto-generated method stub
+    }
     public void valueChanged(ListSelectionEvent e) {
         // TODO Auto-generated method stub
         int row = jt.getSelectedRow();
@@ -135,11 +243,25 @@ public class DeleteSWFrame extends JFrame implements ActionListener, ListSelecti
         int n = JOptionPane.showConfirmDialog(this, "Would you like to delete this slang word?", "An Inane Question",
                 JOptionPane.YES_NO_OPTION);
         if (n == 0) {
-            slangWord.delete(Data, (String) jt.getValueAt(row, 2));
+            slangword.delete(Data, (String) jt.getValueAt(row, 2));
             // default title and icon
             model.removeRow(row);
             JOptionPane.showMessageDialog(this, "Deleted success");
 
+        }
+    }
+    public void addRow() {
+        int size = datatemp.length;
+        for (int i = 0; i < size; i++) {
+            String ss[] = datatemp[i];
+            model.addRow(ss);
+        }
+    }
+    void clearTable() {
+        int rowCount = model.getRowCount();
+        // Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
         }
     }
 }

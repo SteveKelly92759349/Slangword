@@ -60,7 +60,10 @@ public class HistorySWFrame extends JFrame implements ActionListener {
         JScrollPane sp = new JScrollPane(jt);
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
-
+        Dimension size2 = new Dimension(650, 530);
+        panelTable.setMaximumSize(size2);
+        panelTable.setPreferredSize(size2);
+        panelTable.setMinimumSize(size2);
         // 2 Button
         JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back");
@@ -90,7 +93,7 @@ public class HistorySWFrame extends JFrame implements ActionListener {
         this.setTitle("History Window");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(800, 700);
+        this.setSize(800, 800);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }

@@ -13,23 +13,16 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class SearchSWFrame extends JFrame implements ActionListener, TableModelListener {
+public class SearchSWFrame extends JFrame implements ActionListener, TableModelListener, ListSelectionListener {
     JButton btnBack, btnFind;
     JTextField textField;
     JTable jt;
@@ -95,11 +88,18 @@ public class SearchSWFrame extends JFrame implements ActionListener, TableModelL
         jt.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         jt.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         jt.getModel().addTableModelListener(this);
+//        ListSelectionModel selectionModel = jt.getSelectionModel();
+//
+//        selectionModel.addListSelectionListener(this);
+
         JScrollPane sp = new JScrollPane(jt);
 
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
-
+        Dimension size2 = new Dimension(650, 530);
+        panelTable.setMaximumSize(size2);
+        panelTable.setPreferredSize(size2);
+        panelTable.setMinimumSize(size2);
         // Button Back
         JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
@@ -126,7 +126,7 @@ public class SearchSWFrame extends JFrame implements ActionListener, TableModelL
         this.setTitle("Find Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(800, 750);
+        this.setSize(800, 850);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
@@ -211,6 +211,26 @@ public class SearchSWFrame extends JFrame implements ActionListener, TableModelL
             JOptionPane.showMessageDialog(this, "Updated a row.");
         }
         jt.setFocusable(false);
+        // TODO Auto-generated method stub
+    }
+    public void valueChanged(ListSelectionEvent e) {
+        // TODO Auto-generated method stub
+//        int row = jt.getSelectedRow();
+//        int col = jt.getSelectedColumn();
+//        if (row == -1 || col == -1)
+//            return;
+//        String Data = (String) jt.getValueAt(row, 1);
+//
+//        System.out.println("Table element selected is: " + Data);
+//        int n = JOptionPane.showConfirmDialog(this, "Would you like to delete this slang word?", "An Inane Question",
+//                JOptionPane.YES_NO_OPTION);
+//        if (n == 0) {
+//            slangword.delete(Data, (String) jt.getValueAt(row, 2));
+//            // default title and icon
+//            model.removeRow(row);
+//            JOptionPane.showMessageDialog(this, "Deleted success");
+//
+//        }
     }
 
     void clearTable() {
