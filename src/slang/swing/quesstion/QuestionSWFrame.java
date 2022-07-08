@@ -28,16 +28,16 @@ public class QuestionSWFrame extends JFrame implements ActionListener {
     public QuestionSWFrame(int type) {
         s = (SlangWord.getInstance()).quiz(type);
         // A Label
-        JLabel label = new JLabel("Find out the correct answer");
+        JLabel label = new JLabel("Choose the correct answer");
         label.setForeground(Color.BLUE);
         label.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
         label.setAlignmentX(CENTER_ALIGNMENT);
         label.setAlignmentY(-100);
         JLabel questionLabel;
         if (type == 1)
-            questionLabel = new JLabel("Slang " + "`" + s[0] + "`" + " nghia là?");
+            questionLabel = new JLabel("Slang " + "`" + s[0] + "`" + " nghĩa là?");
         else
-            questionLabel = new JLabel("`" + s[0] + "`" + " có slang word là?");
+            questionLabel = new JLabel("`" + s[0] + "`" + " có Slang Word là?");
         questionLabel.setForeground(Color.black);
         questionLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
         questionLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -135,25 +135,25 @@ public class QuestionSWFrame extends JFrame implements ActionListener {
         }
         if (s[1].equals(s[5])) {
             b1.setEnabled(false);
-            b1.setBackground(Color.green);
+            b1.setBackground(Color.yellow);
         } else {
             b1.setEnabled(false);
         }
         if (s[2].equals(s[5])) {
             b2.setEnabled(false);
-            b2.setBackground(Color.green);
+            b2.setBackground(Color.yellow);
         } else {
             b2.setEnabled(false);
         }
         if (s[3].equals(s[5])) {
             b3.setEnabled(false);
-            b3.setBackground(Color.green);
+            b3.setBackground(Color.yellow);
         } else {
             b3.setEnabled(false);
         }
         if (s[4].equals(s[5])) {
             b4.setEnabled(false);
-            b4.setBackground(Color.green);
+            b4.setBackground(Color.yellow);
         } else {
             b4.setEnabled(false);
         }

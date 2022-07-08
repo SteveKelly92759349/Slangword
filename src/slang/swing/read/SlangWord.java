@@ -63,7 +63,7 @@ public class SlangWord {
             PrintWriter printWriter = new PrintWriter(new File(file));
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Slang`Meaning\n");
+            stringBuilder.append("Slang`Definition\n");
             String s[][] = new String[map.size()][3];
             Set<String> keySet = map.keySet();
             Object[] keyArray = keySet.toArray();
@@ -71,10 +71,10 @@ public class SlangWord {
                 Integer in = i + 1;
                 s[i][0] = in.toString();
                 s[i][1] = (String) keyArray[i];
-                List<String> meaning = map.get(keyArray[i]);
-                stringBuilder.append(s[i][1] + "`" + meaning.get(0));
-                for (int j = 1; j < meaning.size(); j++) {
-                    stringBuilder.append("|" + meaning.get(j));
+                List<String> definition = map.get(keyArray[i]);
+                stringBuilder.append(s[i][1] + "`" + definition.get(0));
+                for (int j = 1; j < definition.size(); j++) {
+                    stringBuilder.append("|" + definition.get(j));
                 }
                 stringBuilder.append("\n");
             }
@@ -100,25 +100,25 @@ public class SlangWord {
         int flag = 0;
         sizeMap = 0;
         while (scanner.hasNext()) {
-            List<String> meaning = new ArrayList<String>();
+            List<String> definitionList = new ArrayList<String>();
             slag = part[1].trim();
             temp = scanner.next();
             part = temp.split("\n");
             if (map.containsKey(slag)) {
-                meaning = map.get(slag);
+                definitionList = map.get(slag);
             }
             if (part[0].contains("|")) {
                 System.out.println(part[0]);
                 String[] d = (part[0]).split("\\|");
                 for (int ii = 0; ii < d.length; ii++)
                     System.out.println(d[ii]);
-                Collections.addAll(meaning, d);
+                Collections.addAll(definitionList, d);
                 sizeMap += d.length - 1;
             } else {
-                meaning.add(part[0]);
+                definitionList.add(part[0]);
             }
-            // map.put(slag.trim(), meaning);
-            map.put(slag, meaning);
+            // map.put(slag.trim(), definitionList);
+            map.put(slag, definitionList);
             i++;
             sizeMap++;
         }
@@ -133,15 +133,15 @@ public class SlangWord {
         for (int i = 0; i < sizeMap; i++) {
             s[i][0] = String.valueOf(i);
             s[i][1] = (String) slagList[index];
-            List<String> meaning = map.get(slagList[index]);
-            s[i][2] = meaning.get(0);
+            List<String> definitionList = map.get(slagList[index]);
+            s[i][2] = definitionList.get(0);
             System.out.println(s[i][0] + "\t" + s[i][1] + "\t" + s[i][2]);
-            for (int j = 1; j < meaning.size(); j++) {
+            for (int j = 1; j < definitionList.size(); j++) {
                 if (i < sizeMap)
                     i++;
                 s[i][0] = String.valueOf(i);
                 s[i][1] = (String) slagList[index];
-                s[i][2] = meaning.get(j);
+                s[i][2] = definitionList.get(j);
                 System.out.println(s[i][0] + "\t" + s[i][1] + "\t" + s[i][2]);
             }
             index++;
@@ -149,25 +149,25 @@ public class SlangWord {
         return s;
     }
 
-    public String[][] getMeaning(String key) {
-        List<String> listMeaning = map.get(key);
-        if (listMeaning == null)
+    public String[][] getDefinition(String key) {
+        List<String> listDefinition = map.get(key);
+        if (listDefinition == null)
             return null;
-        int size = listMeaning.size();
+        int size = listDefinition.size();
         String s[][] = new String[size][3];
         for (int i = 0; i < size; i++) {
             s[i][0] = String.valueOf(i);
             s[i][1] = key;
-            s[i][2] = listMeaning.get(i);
+            s[i][2] = listDefinition.get(i);
         }
         return s;
     }
 
     public void set(String slag, String oldValue, String newValue) {
         System.out.println(oldValue + "\t" + newValue);
-        List<String> meaning = map.get(slag);
-        int index = meaning.indexOf(oldValue);
-        meaning.set(index, newValue);
+        List<String> definition = map.get(slag);
+        int index = definition.indexOf(oldValue);
+        definition.set(index, newValue);
         this.saveFile(FILE_SLANGWORD);
         System.out.println("Size of map: " + sizeMap);
     }
@@ -180,11 +180,11 @@ public class SlangWord {
         System.out.println("Size of map: " + sizeMap);
     }
 
-    public void saveHistory(String slag, String meaning) throws Exception {
+    public void saveHistory(String slag, String definition) throws Exception {
         // String file = "history.txt";
         File file1 = new File(FILE_HISTORY);
         FileWriter fr = new FileWriter(file1, true);
-        fr.write(slag + "`" + meaning + "\n");
+        fr.write(slag + "`" + definition + "\n");
         fr.close();
     }
 
@@ -222,13 +222,13 @@ public class SlangWord {
     public String[][] findDefinition(String query) {
         // Get all slang contain key
         List<String> keyList = new ArrayList<>();
-        List<String> meaningList = new ArrayList<>();
+        List<String> definitionList = new ArrayList<>();
         for (Entry<String, List<String>> entry : map.entrySet()) {
-            List<String> meaning = entry.getValue();
-            for (int i = 0; i < meaning.size(); i++) {
-                if (meaning.get(i).toLowerCase().contains(query.toLowerCase())) {
+            List<String> definition = entry.getValue();
+            for (int i = 0; i < definition.size(); i++) {
+                if (definition.get(i).toLowerCase().contains(query.toLowerCase())) {
                     keyList.add(entry.getKey());
-                    meaningList.add(meaning.get(i));
+                    definitionList.add(definition.get(i));
                 }
             }
         }
@@ -238,7 +238,7 @@ public class SlangWord {
         for (int i = 0; i < size; i++) {
             s[i][0] = String.valueOf(i);
             s[i][1] = keyList.get(i);
-            s[i][2] = meaningList.get(i);
+            s[i][2] = definitionList.get(i);
         }
         return s;
     }
@@ -256,38 +256,38 @@ public class SlangWord {
     }
 
     public void delete(String slag, String value) {
-        List<String> meaningList = map.get(slag);
-        int index = meaningList.indexOf(value);
-        if (meaningList.size() == 1) {
+        List<String> definitionList = map.get(slag);
+        int index = definitionList.indexOf(value);
+        if (definitionList.size() == 1) {
             map.remove(slag);
         } else {
-            meaningList.remove(index);
-            map.put(slag, meaningList);
+            definitionList.remove(index);
+            map.put(slag, definitionList);
         }
         sizeMap--;
         this.saveFile(FILE_SLANGWORD);
     }
 
-    public void addNew(String slag, String meaning) {
-        List<String> meaningList = new ArrayList<>();
-        meaningList.add(meaning);
+    public void addNew(String slag, String definition) {
+        List<String> definitionList = new ArrayList<>();
+        definitionList.add(definition);
         sizeMap++;
-        map.put(slag, meaningList);
+        map.put(slag, definitionList);
         this.saveFile(FILE_SLANGWORD);
     }
 
-    public void addDuplicate(String slag, String meaning) {
-        List<String> meaningList = map.get(slag);
-        meaningList.add(meaning);
+    public void addDuplicate(String slag, String defitnition) {
+        List<String> definitionList = map.get(slag);
+        definitionList.add(defitnition);
         sizeMap++;
-        map.put(slag, meaningList);
+        map.put(slag, definitionList);
         this.saveFile(FILE_SLANGWORD);
     }
 
-    public void addOverwrite(String slag, String meaning) {
-        List<String> meaningList = map.get(slag);
-        meaningList.set(0, meaning);
-        map.put(slag, meaningList);
+    public void addOverwrite(String slag, String definition) {
+        List<String> definitionList = map.get(slag);
+        definitionList.set(0, definition);
+        map.put(slag, definitionList);
         this.saveFile(FILE_SLANGWORD);
     }
 
@@ -304,7 +304,7 @@ public class SlangWord {
         int minimun = 0;
         int maximun = map.size() - 1;
         int rand = randInt(minimun, maximun);
-        // Get slang meaning
+        // Get slang difinition
         String s[] = new String[2];
         int index = 0;
         for (String key : map.keySet()) {

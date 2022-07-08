@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class MenuSWFrame extends JFrame implements ActionListener {
-    JButton b1, b2, b3, b4, b5, b6, b7, b8, b9;
+    JButton b9;
     SlangWord slangWord;
     JMenu Menu, Submenu;
     JMenuItem i1, i2, i3, i4, i5, i6, i7, i8, i9, i10;
@@ -129,8 +129,6 @@ public class MenuSWFrame extends JFrame implements ActionListener {
 //        i10.setBackground(Color.cyan);
         i10.setForeground(Color.red);
 
-
-
         Menu.add(i1);
         Menu.add(i2);
         Menu.add(i3);
@@ -145,65 +143,7 @@ public class MenuSWFrame extends JFrame implements ActionListener {
 
 
         slangWord = SlangWord.getInstance();
-        // label.addMouseListener(this);
-        // A Grid
-//        b1 = new JButton("Add");
-//        b1.addActionListener(this);
-//        b1.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b1.setFocusable(false);
-//        b1.setForeground(Color.red);
-//        b1.setBackground(Color.cyan);
-//
-//        b2 = new JButton("Delete");
-//        b2.addActionListener(this);
-//        b2.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b2.setFocusable(false);
-//        b2.setForeground(Color.red);
-//        b2.setBackground(Color.cyan);
-//
-//
-//        b3 = new JButton("List");
-//        b3.addActionListener(this);
-//        b3.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b3.setFocusable(false);
-//        b3.setForeground(Color.red);
-//        b3.setBackground(Color.cyan);
-//
-//        b4 = new JButton("History");
-//        b4.addActionListener(this);
-//        b4.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b4.setFocusable(false);
-//        b4.setForeground(Color.red);
-//        b4.setBackground(Color.cyan);
-//
-//        b5 = new JButton("Random");
-//        b5.addActionListener(this);
-//        b5.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b5.setFocusable(false);
-//        b5.setForeground(Color.red);
-//        b5.setBackground(Color.cyan);
-//
-//        b6 = new JButton("Search");
-//        b6.addActionListener(this);
-//        b6.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b6.setFocusable(false);
-//        b6.setForeground(Color.red);
-//        b6.setBackground(Color.cyan);
-//
-//        b7 = new JButton("Reset");
-//        b7.addActionListener(this);
-//        b7.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b7.setFocusable(false);
-//        b7.setForeground(Color.red);
-//        b7.setBackground(Color.cyan);
-//
-//        b8 = new JButton("Quiz Game");
-//        b8.addActionListener(this);
-//        b8.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
-//        b8.setFocusable(false);
-//        b8.setForeground(Color.red);
-//        b8.setBackground(Color.cyan);
-//
+
         b9 = new JButton("Exit");
         b9.addActionListener(this);
         b9.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
@@ -222,7 +162,7 @@ public class MenuSWFrame extends JFrame implements ActionListener {
         panelCenter.setBackground(Color.black);
         String data[][] = slangWord.getData();
         dataCopy = slangWord.getData();
-        String column[] = { "STT", "Slang Word", "Meaning" };
+        String column[] = { "STT", "Slang Word", "Definition" };
         resultLabel.setText("Total: " + data.length + " slang words");
         jt = new JTable(data, column);
         jt.setRowHeight(30);
@@ -376,7 +316,7 @@ public class MenuSWFrame extends JFrame implements ActionListener {
 //        // System.out.println("Table element selected is: " + Data);
 //
 //        if (col == 2) {
-//            // edit meaning
+//            // edit definition
 //            System.out.println("Old SlangWord: \t" + row + "\t" + dataCopy[row][2]);
 //            slangWord.set((String) jt.getValueAt(row, 1), dataCopy[row][2], (String) jt.getValueAt(row, 2));
 //            JOptionPane.showMessageDialog(this, "Updated a row.");

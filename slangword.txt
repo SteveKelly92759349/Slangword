@@ -1,8 +1,8 @@
-Slang`Meaning
-#1`Number one 
-$`Dollar | money
+Slang`Definition
+#1`Number one
+$`Dollar| money
 $_$`Has money
-%)`Drunk| giddy 
+%)`Drunk| giddy
 &`And
 &APOS;S`Wrongly displayed 's
 &HEARTS;`HTML code for a heart
@@ -97,7 +97,7 @@ $_$`Has money
 2MRW`Tomorrow
 2NITE`Tonight
 2NYT`Tonight
-2U`To You 
+2U`To You
 2U2`To You Too
 30STM`30 Seconds To Mars (band)
 3>`Hate

@@ -24,7 +24,7 @@ import slang.swing.shows.MenuSWFrame;
 public class AddSWFrame extends JFrame implements ActionListener {
     SlangWord slangWord;
     JButton btnBack, btnAdd;
-    JTextField textFieldMeaning, textFieldSlang;
+    JTextField textFieldDefinition, textFieldSlang;
 
     public AddSWFrame() {
         // Get container & slang word
@@ -58,26 +58,26 @@ public class AddSWFrame extends JFrame implements ActionListener {
         layout.putConstraint(SpringLayout.EAST, slagPanel, 6, SpringLayout.EAST, textFieldSlang);
         layout.putConstraint(SpringLayout.SOUTH, slagPanel, 6, SpringLayout.SOUTH, textFieldSlang);
 
-        JPanel meaningPanel = new JPanel();
+        JPanel definitionPanel = new JPanel();
         SpringLayout layout1 = new SpringLayout();
-        meaningPanel.setLayout(layout1);
-        JLabel labelForMeaning = new JLabel("Meaning: ");
-        labelForMeaning.setPreferredSize(new Dimension(100, 20));
-        textFieldMeaning = new JTextField("", 10);
-        meaningPanel.add(labelForMeaning);
-        meaningPanel.add(textFieldMeaning);
-        layout1.putConstraint(SpringLayout.WEST, labelForMeaning, 6, SpringLayout.WEST, meaningPanel);
-        layout1.putConstraint(SpringLayout.NORTH, labelForMeaning, 6, SpringLayout.NORTH, meaningPanel);
-        layout1.putConstraint(SpringLayout.WEST, textFieldMeaning, 6, SpringLayout.EAST, labelForMeaning);
-        layout1.putConstraint(SpringLayout.NORTH, textFieldMeaning, 6, SpringLayout.NORTH, meaningPanel);
-        layout1.putConstraint(SpringLayout.EAST, meaningPanel, 6, SpringLayout.EAST, textFieldMeaning);
-        layout1.putConstraint(SpringLayout.SOUTH, meaningPanel, 6, SpringLayout.SOUTH, textFieldMeaning);
+        definitionPanel.setLayout(layout1);
+        JLabel labelForDefinition = new JLabel("Definition: ");
+        labelForDefinition.setPreferredSize(new Dimension(100, 20));
+        textFieldDefinition = new JTextField("", 10);
+        definitionPanel.add(labelForDefinition);
+        definitionPanel.add(textFieldDefinition);
+        layout1.putConstraint(SpringLayout.WEST, labelForDefinition, 6, SpringLayout.WEST, definitionPanel);
+        layout1.putConstraint(SpringLayout.NORTH, labelForDefinition, 6, SpringLayout.NORTH, definitionPanel);
+        layout1.putConstraint(SpringLayout.WEST, textFieldDefinition, 6, SpringLayout.EAST, labelForDefinition);
+        layout1.putConstraint(SpringLayout.NORTH, textFieldDefinition, 6, SpringLayout.NORTH, definitionPanel);
+        layout1.putConstraint(SpringLayout.EAST, definitionPanel, 6, SpringLayout.EAST, textFieldDefinition);
+        layout1.putConstraint(SpringLayout.SOUTH, definitionPanel, 6, SpringLayout.SOUTH, textFieldDefinition);
 
         form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         form.add(slagPanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
-        form.add(meaningPanel);
+        form.add(definitionPanel);
         // Button Back and button Add
         JPanel bottonPanel = new JPanel();
         btnBack = new JButton("Back ");
@@ -119,14 +119,14 @@ public class AddSWFrame extends JFrame implements ActionListener {
             new MenuSWFrame();
         } else if (e.getSource() == btnAdd) {
             String slag = textFieldSlang.getText();
-            String meaning = textFieldMeaning.getText();
-            if (slag.isEmpty() || meaning.isEmpty()) {
+            String definition = textFieldDefinition.getText();
+            if (slag.isEmpty() || definition.isEmpty()) {
                 // custom title, error icon
-                JOptionPane.showMessageDialog(this, "Slag and Meaning maybe empty", "Inane error",
+                JOptionPane.showMessageDialog(this, "Slag and Definition maybe empty", "Inane error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            System.out.println(slag + " = " + meaning);
+            System.out.println(slag + " = " + definition);
 
             if (slangWord.checkSlang(slag)) {
                 // Duplicate or Overwrite
@@ -136,20 +136,20 @@ public class AddSWFrame extends JFrame implements ActionListener {
                         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
                 if (n == 0) {
                     // Overwrite
-                    slangWord.addOverwrite(slag, meaning);
+                    slangWord.addOverwrite(slag, definition);
                     JOptionPane.showMessageDialog(this, "Overwrite Slang Word Success.");
                 } else if (n == 1) {
                     // Duplicate
-                    slangWord.addDuplicate(slag, meaning);
+                    slangWord.addDuplicate(slag, definition);
                     JOptionPane.showMessageDialog(this, "Dupilicate Slang Word Success.");
                 }
             } else {
                 // Add new slag
-                slangWord.addNew(slag, meaning);
+                slangWord.addNew(slag, definition);
                 JOptionPane.showMessageDialog(this, "Adding new Slang Word Success.");
             }
             textFieldSlang.setText("");
-            textFieldMeaning.setText("");
+            textFieldDefinition.setText("");
         }
     }
 

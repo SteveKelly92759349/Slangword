@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class DeleteSWFrame extends JFrame implements ActionListener, TableModelListener, ListSelectionListener {
     JButton btnBack, btnFind, btnClear;
     JTextField textField;
-    JTable jt;
+    JTable tableShow;
     JLabel titleLabel1;
     DefaultTableModel model;
     SlangWord slangword;
@@ -81,22 +81,22 @@ public class DeleteSWFrame extends JFrame implements ActionListener, TableModelL
         panelTable.setBackground(Color.black);
         datatemp = slangword.getData();
 
-        String column[] = { "STT", "Slang Word", "Meaning" };
+        String column[] = { "STT", "Slang Word", "Definition" };
 
-        jt = new JTable(new DefaultTableModel(column, 0));
-        jt.setRowHeight(30);
-        model = (DefaultTableModel) jt.getModel();
+        tableShow = new JTable(new DefaultTableModel(column, 0));
+        tableShow.setRowHeight(30);
+        model = (DefaultTableModel) tableShow.getModel();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        jt.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        jt.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        jt.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-//        jt.getModel().addTableModelListener(this);
-        ListSelectionModel selectionModel = jt.getSelectionModel();
+        tableShow.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableShow.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tableShow.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+//        tableshow.getModel().addTableModelListener(this);
+        ListSelectionModel selectionModel = tableShow.getSelectionModel();
 
         selectionModel.addListSelectionListener(this);
 
-        JScrollPane sp = new JScrollPane(jt);
+        JScrollPane sp = new JScrollPane(tableShow);
 
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
@@ -163,7 +163,7 @@ public class DeleteSWFrame extends JFrame implements ActionListener, TableModelL
             if (n == 0) {
                 this.clearTable();
                 long startTime = System.currentTimeMillis();
-                temp = slangword.getMeaning(key);
+                temp = slangword.getDefinition(key);
                 long endTime = System.currentTimeMillis();
                 long timeElapsed = endTime - startTime;
                 if (temp != null)
@@ -217,33 +217,33 @@ public class DeleteSWFrame extends JFrame implements ActionListener, TableModelL
 
     @Override
     public void tableChanged(TableModelEvent e) {
-//        int row = jt.getSelectedRow();
-//        int col = jt.getSelectedColumn();
+//        int row = tableshow.getSelectedRow();
+//        int col = tableshow.getSelectedColumn();
 //        if (row == col && row == -1)
 //            return;
-//        String Data = (String) jt.getValueAt(row, col);
+//        String Data = (String) tableshow.getValueAt(row, col);
 //        System.out.println("Table element selected is: " + row + col + " : " + Data);
 //        if (col == 2) {
-//            // edit meaning
-//            slangword.set((String) jt.getValueAt(row, 1), result[row][2], (String) jt.getValueAt(row, 2));
+//            // edit definition
+//            slangword.set((String) tableshow.getValueAt(row, 1), result[row][2], (String) tableshow.getValueAt(row, 2));
 //            JOptionPane.showMessageDialog(this, "Updated a row.");
 //        }
-//        jt.setFocusable(false);
+//        tableshow.setFocusable(false);
         // TODO Auto-generated method stub
     }
     public void valueChanged(ListSelectionEvent e) {
         // TODO Auto-generated method stub
-        int row = jt.getSelectedRow();
-        int col = jt.getSelectedColumn();
+        int row = tableShow.getSelectedRow();
+        int col = tableShow.getSelectedColumn();
         if (row == -1 || col == -1)
             return;
-        String Data = (String) jt.getValueAt(row, 1);
+        String Data = (String) tableShow.getValueAt(row, 1);
 
         System.out.println("Table element selected is: " + Data);
         int n = JOptionPane.showConfirmDialog(this, "Would you like to delete this slang word?", "An Inane Question",
                 JOptionPane.YES_NO_OPTION);
         if (n == 0) {
-            slangword.delete(Data, (String) jt.getValueAt(row, 2));
+            slangword.delete(Data, (String) tableShow.getValueAt(row, 2));
             // default title and icon
             model.removeRow(row);
             JOptionPane.showMessageDialog(this, "Deleted success");

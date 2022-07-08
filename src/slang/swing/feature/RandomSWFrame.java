@@ -40,10 +40,10 @@ public class RandomSWFrame extends JFrame implements ActionListener {
         String s[] = slangWord.random();
 //		System.out.println(s[0] + "\t" + s[1]);
         JPanel slangPanel = new JPanel();
-        // JLabel slangLabel = new JLabel("Slang: :) \t Meaning: Happy");
+        // JLabel slangLabel = new JLabel("Slang: :) \t Definition: Happy");
         JLabel lb1 = new JLabel("Slang: \t");
         lb2 = new JLabel(s[0]);
-        JLabel lb3 = new JLabel("\tMeaning: \t");
+        JLabel lb3 = new JLabel("\tDefinition: \t");
         lb4 = new JLabel(s[1]);
         lb2.setForeground(Color.green);
         lb4.setForeground(Color.red);

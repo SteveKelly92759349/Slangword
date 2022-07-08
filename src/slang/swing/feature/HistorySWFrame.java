@@ -49,15 +49,15 @@ public class HistorySWFrame extends JFrame implements ActionListener {
         String data[][] = slangWord.readHistory();
         String column[] = { "STT", "Slang Word", "Definition" };
         resultLabel.setText("Total: " + data.length + " slang words");
-        JTable jt = new JTable(data, column);
-        jt.setRowHeight(30);
+        JTable tableShow = new JTable(data, column);
+        tableShow.setRowHeight(30);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        jt.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        jt.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tableShow.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableShow.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-        jt.setEnabled(false);
-        JScrollPane sp = new JScrollPane(jt);
+        tableShow.setEnabled(false);
+        JScrollPane sp = new JScrollPane(tableShow);
         panelTable.setLayout(new GridLayout(1, 1));
         panelTable.add(sp);
         Dimension size2 = new Dimension(650, 530);

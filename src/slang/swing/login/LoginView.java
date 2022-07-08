@@ -13,8 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.WindowConstants;
 
+import slang.swing.read.SlangWord;
 
 public class LoginView extends JFrame implements ActionListener {
+    SlangWord slangWord;
+
     private static final long serialVersionUID = 1L;
     private JLabel userNameLabel;
     private JLabel passwordlabel;
@@ -27,6 +30,8 @@ public class LoginView extends JFrame implements ActionListener {
     }
 
     private void initComponents() {
+        slangWord = SlangWord.getInstance();
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         userNameLabel = new JLabel("UserName");
         passwordlabel = new JLabel("Password");
