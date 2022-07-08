@@ -125,7 +125,7 @@ public class EditSWFrame extends JFrame implements ActionListener, TableModelLis
         con.setLayout(new BoxLayout(con, BoxLayout.Y_AXIS));
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(titlePanel);
-        con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(Box.createRigidArea(new Dimension(0, 20)));
         con.add(titleLabel1);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(form);

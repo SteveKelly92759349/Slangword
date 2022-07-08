@@ -40,6 +40,7 @@ public class RandomSWFrame extends JFrame implements ActionListener {
         String s[] = slangWord.random();
 //		System.out.println(s[0] + "\t" + s[1]);
         JPanel slangPanel = new JPanel();
+        JPanel definitionPanel = new JPanel();
         // JLabel slangLabel = new JLabel("Slang: :) \t Definition: Happy");
         JLabel lb1 = new JLabel("Slang: \t");
         lb2 = new JLabel(s[0]);
@@ -54,8 +55,8 @@ public class RandomSWFrame extends JFrame implements ActionListener {
         // slangLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 35));
         slangPanel.add(lb1);
         slangPanel.add(lb2);
-        slangPanel.add(lb3);
-        slangPanel.add(lb4);
+        definitionPanel.add(lb3);
+        definitionPanel.add(lb4);
 
         // Bottom btnback btnRenew
         btnReset = new JButton("Reset");
@@ -77,12 +78,14 @@ public class RandomSWFrame extends JFrame implements ActionListener {
         con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(slangPanel);
         con.add(Box.createRigidArea(new Dimension(0, 10)));
+        con.add(definitionPanel);
+        con.add(Box.createRigidArea(new Dimension(0, 10)));
         con.add(buttonPane);
         // Setting JFrame
         this.setTitle("Random Slang Words");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(800, 250);
+        this.setSize(800, 300);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }

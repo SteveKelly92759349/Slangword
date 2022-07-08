@@ -179,15 +179,7 @@ public class MenuSWFrame extends JFrame implements ActionListener {
 
         panelCenter.setBackground(Color.GREEN);
         panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.X_AXIS));
-//        panelCenter.add(b1);
-//        panelCenter.add(b2);
-//        panelCenter.add(b3);
-//        panelCenter.add(b4);
-//        panelCenter.add(b5);
-//        panelCenter.add(b6);
-//        panelCenter.add(b7);
-//        panelCenter.add(b8);
-        // panelCenter.add(b9);
+
 
         JPanel bottonPanel = new JPanel();
 
